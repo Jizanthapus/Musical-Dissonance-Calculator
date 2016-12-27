@@ -25,10 +25,12 @@ public class dissonance
 		switch(mode) {
 		case 1:		System.out.print("Enter your cord as notes with spaces: ");
 					cord = inCord.nextLine();
+					System.out.println();
 					break;
-		case 2: 	cord = "F A C";
+		case 2: 	cord = "F# A C";
 					break;
 		default:	System.out.println("Invalid Selection, using test string");
+					System.out.println();
 					cord = "C E G";
 					break;
 		}
@@ -115,13 +117,17 @@ public class dissonance
 					
 					if (temp <= -7) {
 						temp = temp + 12;
-					} else if (Math.abs(temp) >= 6) {
+					} else if (Math.abs(temp) > 6) {
 							temp = temp - 12;
 						}
 					
 					total = total + temp;
 					ticks++;
-					System.out.println(notes[j] + " (" + notesInt[j] + ") to " + notes[j+i] + " (" + notesInt[j+i] + ") is " + temp);
+					
+					String firstNote = notes[j] + " (" + notesInt[j] + ")";
+					String secondNote = notes[j+i] + " (" + notesInt[j+i] + ")";
+					System.out.printf("%6s to %-6s is %2d\n", firstNote, secondNote, temp);
+					//System.out.println(notes[j] + " (" + notesInt[j] + ") to " + notes[j+i] + " (" + notesInt[j+i] + ") is " + temp);
 				}
 			}
 		}
@@ -135,7 +141,7 @@ public class dissonance
 		System.out.println("The calculated dissonance is: " + dissonance);
 		System.out.println("dissonance = total / ticks: " + dissonance + " = " + total + " / " + ticks);
 	
-		System.out.print("Would you like to go again? (y/n) ");
+		System.out.print("\nWould you like to go again? (y/n) ");
 		String cont = inCont.nextLine();
 		if (cont.equals("n")) {
 			done = true;
@@ -159,6 +165,7 @@ public class dissonance
 	inMode.close();
 	inCont.close();
 	inCord.close();
+	return;
 
 	}
 }
