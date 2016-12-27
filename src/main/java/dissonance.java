@@ -1,19 +1,39 @@
-public class dissonance 
+import java.util.Scanner;
+
+public class dissonance   
 {
 	public static void main (String[] args) {
 		
 		// Initialize variables
-		String cord;
+		String cord = null;
 		int numOfNotes;
+		Boolean done = false;
 		
 		// Setup initial objects
-		//Scanner in = new Scanner(System.in);
+		Scanner inMode = new Scanner(System.in);
+		Scanner inCord = new Scanner(System.in);
+		Scanner inCont = new Scanner(System.in);
+		
+	while (!done)	{
+		
+		//int mode = 1;
+		System.out.print("Enter 0 for input or 1 for test string: ");
+		int mode = inMode.nextInt();
+		
+		System.out.println();
 		
 		// Take in chord
-		//System.out.print("Enter your cord as notes with no spacing: ");
-		//cords = in.nextLine();
-		//in.close();
-		cord = "C G D A E B F# C# G# D# A# F Gb Db Ab Eb Bb";
+		switch(mode) {
+		case 0:		System.out.print("Enter your cord as notes with spaces: ");
+					cord = inCord.nextLine();
+					
+					break;
+		case 1: 	cord = "C E G";
+					break;
+		default:	System.out.println("Invalid Selection, using test string");
+					cord = "C E G";
+					break;
+		}
 		
 		// Convert input to arraylist
 		String[] notes = cord.split(" ");
@@ -64,23 +84,55 @@ public class dissonance
 		
 		// Perform calculation
 		int numOfRelations = numOfNotes - 1;
-		int total = 0;
+		double total = 0;
+		int ticks = 0;
 		
-		for (int i = 1; i < numOfRelations; i++) {
+		for (int i = 1; i <= numOfRelations; i++) {
 			for (int j = 0; j < numOfNotes; j++) {
-				total = notesInt[j];
+				if (i+j < numOfNotes){
+					int temp = notesInt[i+j] - notesInt[j];
+					if (temp > 5) {
+						temp = temp - 6;
+					}
+					total += temp;
+					ticks++;
+					System.out.println(notes[j] + " (" + notesInt[j] + ") to " + notes[j+i] + " (" + notesInt[j+i] + ") is " + temp);
+				}
 			}
 		}
 		
+		double dissonance = total/ticks;
+		
 		// Output
-		System.out.println("The calculated dissonance is: " + total);
+		System.out.println();
+		System.out.println("The calculated dissonance is: " + dissonance);
+		System.out.println("dissonance = total / ticks: " + dissonance + " = " + total + " / " + ticks);
+	
+		System.out.print("Would you like to go again? (y/n) ");
+		String cont = inCont.nextLine();
+		
+		if (cont.equals("n")) {
+			done = true;
+		}
+	
+	}
+		
+		
+		
+		
+		//System.out.println();
 		
 		// Test output
-		for (int i = 0; i < notes.length; i++) {
-			System.out.printf("%-30.30s  %-30.30s%n", notes[i], notesInt[i]);
-		}
-		System.out.println("notes is: " + notes.length);
-		System.out.println("notesInt is: " + notesInt.length);
+//		for (int i = 0; i < notes.length; i++) {
+//			System.out.printf("%-30.30s  %-30.30s%n", notes[i], notesInt[i]);
+//		}
+		//System.out.println();
+		//System.out.println("notes is: " + notes.length);
+		//System.out.println("notesInt is: " + notesInt.length);
+		
+	inMode.close();
+	inCont.close();
+	inCord.close();
 
 	}
 }

@@ -15,11 +15,7 @@
         <pathelement location="target/classes"/>
         <path refid="Maven Dependencies.libraryclasspath"/>
     </path>
-    <path id="run.App.classpath">
-        <path refid="dissonance.classpath"/>
-        <path refid="Maven Dependencies.libraryclasspath"/>
-    </path>
-    <path id="run.dissonance (1).classpath">
+    <path id="run.dissonance app.classpath">
         <path refid="dissonance.classpath"/>
         <path refid="Maven Dependencies.libraryclasspath"/>
     </path>
@@ -45,18 +41,20 @@
         </javac>
     </target>
     <target description="Build all projects which reference this project. Useful to propagate changes." name="build-refprojects"/>
-    <target name="App">
-        <java classname="App" failonerror="true" fork="yes">
-            <classpath refid="run.App.classpath"/>
-        </java>
-    </target>
-    <target name="dissonance (1)">
+    <target name="dissonance app">
         <java classname="dissonance" failonerror="true" fork="yes">
-            <classpath refid="run.dissonance (1).classpath"/>
+            <classpath refid="run.dissonance app.classpath"/>
         </java>
     </target>
-    <target name="CreateJar" description="Create Jar file">
-    	<jar jarfile="Test.jar" basedir="." includes="*.class" />
-    </target>          	
-              	
+    <target name ="makejar" description="Create a jar for the HW project">
+      <jar jarfile="DissonanceCalculator.jar" 
+		includes="*.class" 
+		basedir=".">
+		<manifest>
+			<attribute name="Main-Class" value="dissonance"/>
+			<attribute name="Class-Path" value="."/>
+		</manifest>              	    
+	</jar>
+ 	
+  </target>          	
 </project>
