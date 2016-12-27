@@ -17,10 +17,7 @@
     <plugins>
       <plugin>
         <artifactId>maven-jar-plugin</artifactId>
-<<<<<<< HEAD
-         <version>2.4</version>
-=======
->>>>>>> master
+        <version>2.4</version>
         <configuration>
           <archive>
             <addMavenDescriptor>false</addMavenDescriptor>
