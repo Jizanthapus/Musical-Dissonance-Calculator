@@ -16,19 +16,17 @@ public class dissonance
 		
 	while (!done)	{
 		
-		//int mode = 1;
-		System.out.print("Enter 0 for input or 1 for test string: ");
-		int mode = inMode.nextInt();
-		
-		System.out.println();
+		int mode = 1;
+		//System.out.print("Enter 0 for input or 1 for test string: ");
+		//int mode = inMode.nextInt();
+		//System.out.println();
 		
 		// Take in chord
 		switch(mode) {
-		case 0:		System.out.print("Enter your cord as notes with spaces: ");
+		case 1:		System.out.print("Enter your cord as notes with spaces: ");
 					cord = inCord.nextLine();
-					
 					break;
-		case 1: 	cord = "C E G";
+		case 2: 	cord = "C E G";
 					break;
 		default:	System.out.println("Invalid Selection, using test string");
 					cord = "C E G";
@@ -91,8 +89,14 @@ public class dissonance
 			for (int j = 0; j < numOfNotes; j++) {
 				if (i+j < numOfNotes){
 					int temp = notesInt[i+j] - notesInt[j];
-					if (temp > 5) {
-						temp = temp - 6;
+//					if (Math.abs(temp) > 6) {
+//						temp = -1 * (temp - 6);
+//					}
+					if (Math.abs(temp) >= 6) {
+						temp -= 12;
+					}
+					if (temp <= -7) {
+						temp += 12;
 					}
 					total += temp;
 					ticks++;
@@ -110,7 +114,6 @@ public class dissonance
 	
 		System.out.print("Would you like to go again? (y/n) ");
 		String cont = inCont.nextLine();
-		
 		if (cont.equals("n")) {
 			done = true;
 		}
