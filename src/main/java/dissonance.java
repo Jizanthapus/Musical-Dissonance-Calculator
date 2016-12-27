@@ -26,7 +26,7 @@ public class dissonance
 		case 1:		System.out.print("Enter your cord as notes with spaces: ");
 					cord = inCord.nextLine();
 					break;
-		case 2: 	cord = "C E G";
+		case 2: 	cord = "F A C";
 					break;
 		default:	System.out.println("Invalid Selection, using test string");
 					cord = "C E G";
@@ -35,6 +35,29 @@ public class dissonance
 		
 		// Convert input to arraylist
 		String[] notes = cord.split(" ");
+		
+//		//TODO Check for unsupported notes
+//		for (String s : notes) {
+//			if ((s.equals("A")) || 
+//				!s.equals("B") || 
+//				!s.equals("C") || 
+//				!s.equals("D") ||
+//				!s.equals("E") ||
+//				!s.equals("F") ||
+//				!s.equals("F#") ||
+//				!s.equals("C#") ||
+//				!s.equals("G#") ||
+//				!s.equals("D#") ||
+//				!s.equals("A#") ||
+//				!s.equals("Gb") ||
+//				!s.equals("Db") ||
+//				!s.equals("Ab") ||
+//				!s.equals("Eb") ||
+//				!s.equals("Bb")) {
+//				System.out.println("You have entered an unsupported note.");
+//				System.out.println("Valid notes are: A B C .");
+//			}
+//		}
 		
 		// Start int array based on number of notes
 		int[] notesInt = new int[notes.length];
@@ -82,30 +105,30 @@ public class dissonance
 		
 		// Perform calculation
 		int numOfRelations = numOfNotes - 1;
-		double total = 0;
+		int total = 0;
 		int ticks = 0;
 		
 		for (int i = 1; i <= numOfRelations; i++) {
 			for (int j = 0; j < numOfNotes; j++) {
 				if (i+j < numOfNotes){
 					int temp = notesInt[i+j] - notesInt[j];
-//					if (Math.abs(temp) > 6) {
-//						temp = -1 * (temp - 6);
-//					}
-					if (Math.abs(temp) >= 6) {
-						temp -= 12;
-					}
+					
 					if (temp <= -7) {
-						temp += 12;
-					}
-					total += temp;
+						temp = temp + 12;
+					} else if (Math.abs(temp) >= 6) {
+							temp = temp - 12;
+						}
+					
+					total = total + temp;
 					ticks++;
 					System.out.println(notes[j] + " (" + notesInt[j] + ") to " + notes[j+i] + " (" + notesInt[j+i] + ") is " + temp);
 				}
 			}
 		}
 		
-		double dissonance = total/ticks;
+		float fTotal = total;
+		float fTicks = ticks;
+		float dissonance = fTotal/fTicks;
 		
 		// Output
 		System.out.println();
